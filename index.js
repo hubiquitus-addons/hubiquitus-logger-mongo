@@ -1,4 +1,4 @@
-var hubiquitus = require('hubiquitus');
+var hubiquitus = require('hubiquitus-core');
 var mongo = require('mongodb');
 
 var db = null;
