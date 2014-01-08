@@ -1,5 +1,7 @@
 var hubiquitus = require('hubiquitus-core');
 var mongo = require('mongodb');
+var _ = require('lodash');
+var util = require('util');
 
 var db = null;
 var conf = {};
@@ -36,11 +38,19 @@ function overrideLogger() {
   hubiquitus.logger.log = function (namespace, level, messages) {
     db.collection(conf.collection, function (err, collection) {
       if (err) throw err;
+      var processedMessages = [];
+      _.forEach(messages, function (message) {
+        if (util.isError(message)) {
+          processedMessages.push({type: 'Error', message: message.message, stack: message.stack});
+        } else {
+          processedMessages.push(log);
+        }
+      });
       collection.insert({
         namespace: namespace,
         level: level,
         date: (new Date()).getTime(),
-        messages: messages
+        messages: processedMessages
       }, {w:0});
     });
   };
