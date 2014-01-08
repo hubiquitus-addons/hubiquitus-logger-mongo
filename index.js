@@ -43,7 +43,7 @@ function overrideLogger() {
         if (util.isError(message)) {
           processedMessages.push({type: 'Error', message: message.message, stack: message.stack});
         } else {
-          processedMessages.push(log);
+          processedMessages.push(message);
         }
       });
       collection.insert({
