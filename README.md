@@ -13,7 +13,6 @@ mongoLogger.configure({dbname: 'test', collection: 'hlog'}, function (err) {
   if (err) return logger.err(err);
   logger.info('OK !');
 });
-
 ```
 
 The configure method takes a configuration object. That object may contains :
