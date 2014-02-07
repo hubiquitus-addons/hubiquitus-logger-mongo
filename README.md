@@ -1,6 +1,12 @@
-# hubiquitus-loggerMongo
+# Hubiquitus logger mongo
 
-Mongo logger for Hubiquitus. This module overrides the log method of hubiquitus to persist logs into database.
+This module overrides the log method of hubiquitus to persist logs into database.
+
+## Installation
+
+    $ npm install hubiquitus-logger-mongo
+
+## How to use
 
 ```js
 var hubiquitus = require('hubiquitus-core');
