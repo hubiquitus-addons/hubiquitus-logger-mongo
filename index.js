@@ -38,19 +38,11 @@ function overrideLogger() {
   hubiquitus.logger.log = function (namespace, level, messages) {
     db.collection(conf.collection, function (err, collection) {
       if (err) throw err;
-      var processedMessages = [];
-      _.forEach(messages, function (message) {
-        if (util.isError(message)) {
-          processedMessages.push({type: 'Error', message: message.message, stack: message.stack});
-        } else {
-          processedMessages.push(message);
-        }
-      });
       collection.insert({
         namespace: namespace,
         level: level,
         date: (new Date()).getTime(),
-        messages: processedMessages
+        messages: messages
       }, {w:0});
     });
   };
