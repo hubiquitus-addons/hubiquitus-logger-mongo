@@ -21,14 +21,16 @@ exports.configure = function (properties, done) {
 };
 
 function overrideLogger() {
-  hubiquitus.logger.log = function (namespace, level, messages) {
+  hubiquitus.logger.log = function (namespace, level, messages, errors, container) {
     db.collection(conf.collection, function (err, collection) {
       if (err) throw err;
       collection.insert({
         namespace: namespace,
         level: level,
         date: (new Date()).getTime(),
-        messages: messages
+        messages: JSON.stringify(messages),
+        errors: JSON.stringify(errors),
+        container: container
       }, {w:0});
     });
   };
