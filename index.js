@@ -11,7 +11,7 @@ exports.configure = function (properties, done) {
   conf.mongo = properties.mongo || 'mongodb://localhost:27017/logs';
   conf.collection = properties.collection || 'logs';
 
-  MongoClient.connect(properties.mongo, {mongos: {'auto_reconnect': true}} , function(err, _db) {
+  MongoClient.connect(conf.mongo, {mongos: {'auto_reconnect': true}} , function(err, _db) {
     if (err) return (done && done(err));
     db = _db;
 
