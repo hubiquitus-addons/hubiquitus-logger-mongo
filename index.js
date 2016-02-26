@@ -1,6 +1,5 @@
 var hubiquitus = require('hubiquitus-core');
 var mongo = require('mongodb');
-var _ = require('lodash');
 var util = require('util');
 var MongoClient = require('mongodb').MongoClient;
 
