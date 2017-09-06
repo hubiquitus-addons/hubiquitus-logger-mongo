@@ -10,7 +10,7 @@ exports.configure = function (properties, done) {
   conf.mongo = properties.mongo || 'mongodb://localhost:27017/logs';
   conf.collection = properties.collection || 'logs';
 
-  MongoClient.connect(conf.mongo, {mongos: {'auto_reconnect': true}} , function(err, _db) {
+  MongoClient.connect(conf.mongo, null , function(err, _db) {
     if (err) return (done && done(err));
     db = _db;
 
@@ -23,7 +23,7 @@ function overrideLogger() {
   hubiquitus.logger.log = function (namespace, level, messages) {
     db.collection(conf.collection, function (err, collection) {
       if (err) throw err;
-      collection.insert({
+      collection.insertOne({
         namespace: namespace,
         level: level,
         date: (new Date()).getTime(),
